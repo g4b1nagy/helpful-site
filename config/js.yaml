@@ -1,0 +1,9 @@
+output: dist/js
+
+js_minifier_options:
+  mangle: true
+  mangle_toplevel: true
+
+javascript:
+  script:
+    - src/js/*.js

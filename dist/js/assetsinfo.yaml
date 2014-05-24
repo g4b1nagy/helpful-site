@@ -1,0 +1,17 @@
+javascript:
+  script:
+    files:
+    - src/js/bootstrap.js
+    - src/js/bootstrap.min.js
+    - src/js/jquery-1.11.1.min.js
+    - src/js/jquery-2.1.1.min.js
+    - src/js/script.js
+    fingerprint: ''
+    output:
+      gz: script.min.js.gz
+      min: script.min.js
+      raw: script.js
+    size:
+      gz: 73787
+      min: 239228
+      raw: 265587

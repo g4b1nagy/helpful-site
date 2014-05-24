@@ -1,0 +1,18 @@
+css:
+  style:
+    files:
+    - src/css/bootstrap-theme.css
+    - src/css/bootstrap-theme.min.css
+    - src/css/bootstrap.css
+    - src/css/bootstrap.min.css
+    - src/css/plain.css
+    - src/css/style.css
+    fingerprint: ''
+    output:
+      gz: style.min.css.gz
+      min: style.min.css
+      raw: style.css
+    size:
+      gz: 36049
+      min: 228756
+      raw: 254745

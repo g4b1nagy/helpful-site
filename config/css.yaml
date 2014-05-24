@@ -1,0 +1,5 @@
+output: dist/css
+
+css:
+  style:
+    - src/css/*.css
