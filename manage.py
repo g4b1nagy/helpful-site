@@ -10,6 +10,7 @@ import time
 
 import click
 import jinja2
+import markdown
 import slugify
 import yaml
 
@@ -42,7 +43,7 @@ def new():
                                    slugify.slugify(page_data['title']))
   page_path = os.path.join(config['src_dir'], page_filename)
   if os.path.isfile(page_path):
-    click.echo('A page with this name already exists.')
+    click.echo('A page with the same name already exists.')
   else:
     with open(page_path, 'w') as page:
       page.write(config['delimiter'])
@@ -71,7 +72,7 @@ def compile():
     with open(page_path, 'r') as page:
       data = page.read().split(config['delimiter'])
       page_data = yaml.load(data[1])
-      page_data['content'] = data[2]
+      page_data['content'] = markdown.markdown(data[2], output_format='html5')
     page_data['date'] = datetime.datetime.fromtimestamp(
                                                       page_data['timestamp'])
     page_dist_path = os.path.join(config['dist_dir'], page_name)

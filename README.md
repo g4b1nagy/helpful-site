@@ -8,7 +8,7 @@ Clever static site generator written in Python [work in progress]
 helpful-site is a static site generator written on top of
 [click](http://click.pocoo.org/), [Jinja2](http://jinja.pocoo.org/) and
 [Crammit](https://github.com/rspivak/crammit). It aims to provide a friendly
-interface for building web pages from text files and minifying CSS and JS.
+interface for building web pages from markdown files and minifying CSS and JS.
 Customizable template system and static web server included.
 
 ### How does it work? ###
