@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% if not title %}DEFAULT TITLE{% else %}{{ title }}{% endif %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% if not description %}DEFAULT DESCRIPTION{% else %}{{ description }}{% endif %}">
+    <meta name="author" content="g4b1nagy">
+    <meta property="og:image" content="{% if not ogimage %}DEFAULT OGIMAGE{% else %}{{ ogimage }}{% endif %}">
+    <link rel="icon" type="image/png" href="{% if not icon %}DEFAULT ICON{% else %}{{ icon }}{% endif %}">
+    {% block styles %}
+      <link rel="stylesheet" type="text/css" href="/css/style.min.css">
+      {% if style %}
+        <link rel="stylesheet" type="text/css" href="{{ style }}">
+      {% endif %}
+    {% endblock %}
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script type="text/javascript" src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+    {% block scripts %}
+      <script type="text/javascript" src="/js/script.min.js"></script>
+      {% if script %}
+        <script type="text/javascript" src="{{ script }}"></script>
+      {% endif %}
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,6 @@
+src_dir: src
+dist_dir: dist
+template_dir: config/templates
+default_template: post.html
+delimiter: "===========================================================================\n"
+port: "3000"

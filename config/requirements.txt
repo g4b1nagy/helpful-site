@@ -1,8 +1,13 @@
+Jinja2==2.7.2
+MarkupSafe==0.23
 PyYAML==3.11
+Unidecode==0.04.16
 argparse==1.2.1
+click==1.1
 crammit==0.5
 cssmin==0.2.0
 envoy==0.0.2
 ply==3.4
+python-slugify==0.0.7
 slimit==0.8.1
 wsgiref==0.1.2
