@@ -1,7 +1,7 @@
 helpful-site
 ============
 
-Clever static site generator written in Python
+Clever static site generator written in Python [work in progress]
 
 ### What's this? ###
 
