@@ -45,7 +45,7 @@ to both minify and compile the files.
 ### Getting your hands dirty ###
 
 * cd to a comfy location
-* git clone git@github.com:g4b1nagy/helpful-site.git
+* git clone [git@github.com:g4b1nagy/helpful-site.git](git@github.com:g4b1nagy/helpful-site.git)
 * cd helpful-site/
 * virtualenv .venv
 * source .venv/bin/activate
@@ -56,4 +56,4 @@ to both minify and compile the files.
 * add content to the page
 * ./manage.py update
 * ./manage.py runserver
-* point your browser at http://localhost:3000/
+* point your browser at [http://localhost:3000/](http://localhost:3000/)
