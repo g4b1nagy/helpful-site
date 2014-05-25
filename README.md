@@ -56,4 +56,4 @@ to both minify and compile the files.
 * add content to the page
 * ./manage.py update
 * ./manage.py runserver
-* point your browser at [http://localhost:3000/](http://localhost:3000/)
+* point your browser to [http://localhost:3000/](http://localhost:3000/)
