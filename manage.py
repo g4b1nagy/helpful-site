@@ -39,7 +39,7 @@ def new():
   page_data['timestamp'] = time.mktime(date.timetuple())
   page_data['template'] = config['default_template']
   page_filename = '{0}-{1}'.format(date.strftime('%Y-%m-%d'),
-      slugify.slugify(page_data['title']))
+                                   slugify.slugify(page_data['title']))
   page_path = os.path.join(config['src_dir'], page_filename)
   if os.path.isfile(page_path):
     click.echo('A page with this name already exists.')
@@ -73,14 +73,13 @@ def compile():
       page_data = yaml.load(data[1])
       page_data['content'] = data[2]
     page_data['date'] = datetime.datetime.fromtimestamp(
-                        page_data['timestamp'])
+                                                      page_data['timestamp'])
     page_dist_path = os.path.join(config['dist_dir'], page_name)
     if not os.path.exists(page_dist_path):
       os.makedirs(page_dist_path)
     page_dist_path = os.path.join(page_dist_path, 'index.html')
-
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(
-          config['template_dir']))
+                                                      config['template_dir']))
     template = env.get_template(page_data['template'])
     render = template.render(page_data)
     with open(page_dist_path, 'w') as page:
@@ -102,7 +101,7 @@ def runserver():
 
   os.chdir(config['dist_dir'])
   process = subprocess.call(['python', '-m', 'SimpleHTTPServer',
-              config['port']])
+            config['port']])
   atexit.register(process.terminate)
 
 
