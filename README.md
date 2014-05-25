@@ -45,7 +45,7 @@ to both minify and compile the files.
 ### Getting your hands dirty ###
 
 * cd to a comfy location
-* git clone [git@github.com:g4b1nagy/helpful-site.git](git@github.com:g4b1nagy/helpful-site.git)
+* git clone git@github.com:g4b1nagy/helpful-site.git
 * cd helpful-site/
 * virtualenv .venv
 * source .venv/bin/activate
