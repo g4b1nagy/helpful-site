@@ -22,7 +22,7 @@ To create a new page, run
 
 After adding content to the page, run
 
-    ./manage.py compile
+    ./manage.py build
 
 to build the .html files. If you make any changes to the CSS or JS inside the
 src directory, you will want to run
@@ -40,7 +40,7 @@ to start a local server and last but not least,
     ./manage.py update
 
 
-to both minify and compile the files.
+to both minify and build the files.
 
 ### Getting your hands dirty ###
 

@@ -1,0 +1,17 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+  {% include "partials/header.html" %}
+  <div class="container">
+    <div class="row">
+      {% for post in posts %}
+        <div class="col-lg-12">
+          <h2><a href="{{ post.link }}">{{ post.title }}</a></h2>
+          <h3><small>{{ post.date.strftime('%A %d %b %Y, %H:%M') }}</small></h3>
+          {{ post.content|truncate(256) }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% include "partials/footer.html" %}
+{% endblock %}

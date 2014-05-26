@@ -1,6 +1,17 @@
-src_dir: src
-dist_dir: dist
-template_dir: config/templates
+# directory settings
+src_dir: src/
+dist_dir: dist/
+template_dir: config/templates/
+
+# template settings
+home_template: home.html
 default_template: post.html
+
+# link settings
+link_prefix_format: "%Y-%m-%d-"
+prev_next_links: true
+
+# hipster settings (they don't fit in any category)
+date_format: "%Y-%m-%d %H:%M"
 delimiter: "===========================================================================\n"
 port: "3000"

@@ -1,0 +1,7 @@
+# attributes that can be customized on a per page basis
+# when left empty, the default values are used
+description: ""
+icon: ""
+ogimage: ""
+script: ""
+style: ""

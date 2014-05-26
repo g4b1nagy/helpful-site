@@ -2,6 +2,7 @@ Jinja2==2.7.2
 Markdown==2.4.1
 MarkupSafe==0.23
 PyYAML==3.11
+Pygments==1.6
 Unidecode==0.04.16
 argparse==1.2.1
 click==1.1
