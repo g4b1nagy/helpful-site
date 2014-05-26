@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import atexit
+import codecs
 import datetime
 import os
 import shutil
@@ -63,7 +64,7 @@ def build():
     file_path = os.path.join(config['src_dir'], file_name)
     if os.path.isfile(file_path):
 
-      with open(file_path, 'r') as f:
+      with codecs.open(file_path, mode='r', encoding='utf-8') as f:
         data = f.read().split(config['delimiter'])
         page_attributes = yaml.load(data[1])
         page_attributes['content'] = markdown.markdown(data[2], output_format='html5')
@@ -98,14 +99,14 @@ def build():
     template = environment.get_template(page['template'])
     render = template.render(page)
     file_path = os.path.join(dir_path, 'index.html')
-    with open(file_path, 'w') as f:
+    with codecs.open(file_path, mode='w', encoding='utf-8') as f:
       f.write(render)
 
   # write the index.html
   template = environment.get_template(config['home_template'])
   render = template.render({'posts': posts})
   file_path = os.path.join(config['dist_dir'], 'index.html')
-  with open(file_path, 'w') as f:
+  with codecs.open(file_path, mode='w', encoding='utf-8') as f:
     f.write(render)
 
 
