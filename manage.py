@@ -24,14 +24,18 @@ def cli():
 
 @cli.command()
 def new():
-  """Create a new page."""
+  """Create a new post or page."""
 
   date = datetime.datetime.now()
-  page_attributes['title'] = click.prompt('Title', default='New page')
+  file_type = click.prompt('Create new post/page', type=click.Choice(['post', 'page']), default='post')
+  page_attributes['title'] = click.prompt('Title', default='New ' + file_type)
   page_attributes['date'] = date.strftime(config['date_format'])
   page_attributes['template'] = config['default_template']
-  file_name = (date.strftime(config['link_prefix_format']) +
-                slugify.slugify(page_attributes['title']) + '.md')
+  if file_type == 'post':
+    file_name = (date.strftime(config['link_prefix_format']) +
+                  slugify.slugify(page_attributes['title']) + '.md')
+  else:
+    file_name = slugify.slugify(page_attributes['title']) + '.md'
   file_path = os.path.join(config['src_dir'], file_name)
   if os.path.isfile(file_path):
     click.echo('A page with the same name already exists.')
