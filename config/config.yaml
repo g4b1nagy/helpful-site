@@ -12,7 +12,7 @@ link_prefix_format: "%Y-%m-%d-"
 prev_next_links: true
 
 # minification settings
-output: assets
+output: dist/assets/
 css:
   style:
     - src/css/*.css
