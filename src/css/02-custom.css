@@ -1,8 +1,12 @@
 .site-head {
-    height: 35%;
+  height: 35%;
 }
 
 .site-head a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
+}
+
+.site-head a:hover {
+  color: #57a3e8;
 }

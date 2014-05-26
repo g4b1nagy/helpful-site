@@ -526,22 +526,16 @@ margin on the iframe, cause it breaks stuff. */
 
 .post-title {
     margin:0;
-    color: #222;
 }
 
 .post-title a {
     text-decoration: none;
-    color: #222;
 }
 
 .post-excerpt p {
     margin: 1.6rem 0 0 0;
     font-size: 0.9em;
     line-height: 1.6em;
-}
-
-.read-more {
-    text-decoration: none;
 }
 
 .post-meta {
@@ -741,14 +735,27 @@ margin on the iframe, cause it breaks stuff. */
    6. Tag archive
    ========================================================================== */
 
+.archive-template .site-head {
+    height: auto;
+    padding-bottom: 5rem;
+}
+
+.archive-template .site-head a {
+    color: #fff;
+}
+
+.archive-template .blog-logo {
+    display: block;
+    margin-top: 5rem;
+}
+
 .tag-archive-header {
-    position: relative;
+    padding: 20px 0;
+    text-align: center;
     max-width: 700px;
     margin: 4rem auto;
     border-bottom: 1px solid #EBF2F6;
-    padding: 20px 0;
-    text-align: center;
-    color: #222;
+    position: relative;
 }
 
 .tag-archive-header:after {
@@ -768,6 +775,10 @@ margin on the iframe, cause it breaks stuff. */
     box-shadow: #fff 0 0 0 5px;
 }
 
+.archive-template .blog-title {
+    display: inline-block;
+    padding: 2.5rem 0;
+}
 
 /* ==========================================================================
    7. Third Party Elements - Embeds from other services
@@ -1070,15 +1081,10 @@ margin on the iframe, cause it breaks stuff. */
 
     .post-template .post {
         padding-bottom: 0;
-        margin-bottom: 0;
     }
 
     .post-template .post-header {
         padding: 30px 0;
-    }
-
-    .post-template .site-footer {
-        margin-top: 0;
     }
 
     .post-content img {
@@ -1115,16 +1121,6 @@ margin on the iframe, cause it breaks stuff. */
 
     .post-footer .share a {
         margin: 1.4rem 0.8rem 0 0.8rem;
-    }
-
-    .author-meta li {
-        float: none;
-        margin: 0;
-        line-height: 1.6em;
-    }
-
-    .author-meta li:before {
-        display: none;
     }
 
     .older-posts,
