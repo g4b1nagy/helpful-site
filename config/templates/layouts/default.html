@@ -5,11 +5,12 @@
     <title>{% if not title %}DEFAULT TITLE{% else %}{{ title }}{% endif %} | WEBSITE.COM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{% if not description %}DEFAULT DESCRIPTION{% else %}{{ description }}{% endif %}">
-    <meta name="author" content="g4b1nagy">
+    <meta name="author" content="AUTHOR NAME">
     <meta property="og:image" content="{% if not ogimage %}DEFAULT OGIMAGE{% else %}{{ ogimage }}{% endif %}">
     <link rel="icon" type="image/png" href="{% if not icon %}DEFAULT ICON{% else %}{{ icon }}{% endif %}">
     {% block styles %}
       <link rel="stylesheet" type="text/css" href="/assets/style.min.css">
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic|Open+Sans:700,400">
       {% if style %}
         <link rel="stylesheet" type="text/css" href="{{ style }}">
       {% endif %}

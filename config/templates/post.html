@@ -2,20 +2,23 @@
 
 {% block content %}
   {% include "partials/header.html" %}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <h2>{{ title }}</h2>
-        <h3><small>{{ date.strftime('%A %d %b %Y, %H:%M') }}</small></h3>
+  <main class="content post-template" role="main">
+    <article class="post">
+      <span class="post-meta"><time datetime="{{ date.strftime('%Y-%m-%d') }}">{{ date.strftime('%d %b %Y') }}</time></span>
+      <h1 class="post-title"><a href="{{ link }}">{{ title }}</a></h1>
+      <section class="post-excerpt">
         {{ content }}
-        {% if prev_post %}
-          <h3 class="pull-left"><a href="{{ prev_post }}">&larr; Prev post</a></h3>
-        {% endif %}
-        {% if next_post %}
-          <h3 class="pull-right"><a href="{{ next_post }}">Next post &rarr;</a></h3>
-        {% endif %}
-      </div>
-    </div>
-  </div>
+      </section>
+    </article>
+    <nav class="pagination" role="navigation">
+      {% if prev_post %}
+        <a class="newer-posts" href="{{ prev_post }}">&larr; Previous Post</a>
+      {% endif %}
+      <span class="page-number"></span>
+      {% if next_post %}
+        <a class="older-posts" href="/page/3/">Next Post &rarr;</a>
+      {% endif %}
+    </nav>
+  </main>
   {% include "partials/footer.html" %}
 {% endblock %}
