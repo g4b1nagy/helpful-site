@@ -141,10 +141,6 @@ def reset():
   click.confirm('Reset site and remove all files?', abort=True)
   if os.path.isdir(config['dist_dir']):
     shutil.rmtree(config['dist_dir'])
-  for file_name in os.listdir(config['src_dir']):
-    file_path = os.path.join(config['src_dir'], file_name)
-    if os.path.isfile(file_path):
-      os.remove(file_path)
 
 
 if __name__ == '__main__':
