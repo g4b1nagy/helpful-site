@@ -46,10 +46,8 @@ def new():
 def mini():
   """Minify CSS and JS."""
 
-  click.echo('Processing CSS')
-  subprocess.call(['crammit', '-c', 'config/css.yaml'])
-  click.echo('Processing JS')
-  subprocess.call(['crammit', '-c', 'config/js.yaml'])
+  click.echo('Processing CSS and JS')
+  subprocess.call(['crammit', '-c', 'config/config.yaml'])
 
 
 @cli.command()
@@ -94,8 +92,6 @@ def build():
   environment = jinja2.Environment(loader=jinja2.FileSystemLoader(config['template_dir']))
   # write the .html files
   for page in posts + pages:
-    import pprint
-    pprint.pprint(page.keys())
     dir_path = os.path.join(config['dist_dir'], page['file_name'])
     if not os.path.exists(dir_path):
       os.makedirs(dir_path)

@@ -11,6 +11,15 @@ default_template: post.html
 link_prefix_format: "%Y-%m-%d-"
 prev_next_links: true
 
+# minification settings
+output: assets
+css:
+  style:
+    - src/css/*.css
+javascript:
+  script:
+    - src/js/*.js
+
 # hipster settings (they don't fit in any category)
 date_format: "%Y-%m-%d %H:%M"
 delimiter: "===========================================================================\n"

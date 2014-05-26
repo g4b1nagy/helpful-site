@@ -1,0 +1,29 @@
+css:
+  style:
+    files:
+    - src/css/01-bootstrap.css
+    - src/css/02-style.css
+    fingerprint: ''
+    output:
+      gz: style.min.css.gz
+      min: style.min.css
+      raw: style.css
+    size:
+      gz: 17094
+      min: 100397
+      raw: 122798
+javascript:
+  script:
+    files:
+    - src/js/01-jquery-1.11.1.min.js
+    - src/js/02-bootstrap.js
+    - src/js/03-script.js
+    fingerprint: ''
+    output:
+      gz: script.min.js.gz
+      min: script.min.js
+      raw: script.js
+    size:
+      gz: 40384
+      min: 125871
+      raw: 152230

@@ -9,7 +9,7 @@
     <meta property="og:image" content="{% if not ogimage %}DEFAULT OGIMAGE{% else %}{{ ogimage }}{% endif %}">
     <link rel="icon" type="image/png" href="{% if not icon %}DEFAULT ICON{% else %}{{ icon }}{% endif %}">
     {% block styles %}
-      <link rel="stylesheet" type="text/css" href="/css/style.min.css">
+      <link rel="stylesheet" type="text/css" href="/assets/style.min.css">
       {% if style %}
         <link rel="stylesheet" type="text/css" href="{{ style }}">
       {% endif %}
@@ -22,7 +22,7 @@
   <body>
     {% block content %}{% endblock %}
     {% block scripts %}
-      <script type="text/javascript" src="/js/script.min.js"></script>
+      <script type="text/javascript" src="/assets/script.min.js"></script>
       {% if script %}
         <script type="text/javascript" src="{{ script }}"></script>
       {% endif %}
