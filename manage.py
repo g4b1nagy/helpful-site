@@ -62,6 +62,7 @@ def build():
   click.echo('Building pages')
   posts = []
   pages = []
+  categories = set()
   link_prefix_len = len(config['link_prefix_format'])
   # read the files from the src directory
   for file_name in os.listdir(config['src_dir']):
@@ -73,6 +74,8 @@ def build():
         page_attributes = yaml.load(data[1])
         page_attributes['content'] = markdown.markdown(data[2], output_format='html5')
       page_attributes['date'] = datetime.datetime.strptime(page_attributes['date'], config['date_format'])
+      page_attributes['categories'] = [slugify.slugify(x.strip()) for x in page_attributes['categories'].split(',') if x.strip() != '']
+      [categories.add(x) for x in page_attributes['categories']]
       page_attributes['file_name'] = file_name.replace('.md', '')
       page_attributes['link'] = '/' + file_name.replace('.md', '') + '/'
       try:
@@ -85,6 +88,7 @@ def build():
 
   # sort posts from newest to oldest
   posts = sorted(posts, key=lambda x: x['date'], reverse=True)
+  categories = list(categories)
 
   # add prev and next links to posts
   if config['prev_next_links']:
@@ -95,6 +99,7 @@ def build():
         posts[i]['next_post'] = '/' + posts[i - 1]['file_name'] + '/'
 
   environment = jinja2.Environment(loader=jinja2.FileSystemLoader(config['template_dir']))
+
   # write the .html files
   for page in posts + pages:
     dir_path = os.path.join(config['dist_dir'], page['file_name'])
@@ -112,6 +117,17 @@ def build():
   file_path = os.path.join(config['dist_dir'], 'index.html')
   with codecs.open(file_path, mode='w', encoding='utf-8') as f:
     f.write(render)
+
+  template = environment.get_template(config['home_template'])
+  for category in categories:
+    posts_in_category = [x for x in posts if category in x['categories']]
+    dir_path = os.path.join(config['dist_dir'], 'category', category)
+    if not os.path.exists(dir_path):
+      os.makedirs(dir_path)
+    render = template.render({'posts': posts_in_category})
+    file_path = os.path.join(dir_path, 'index.html')
+    with codecs.open(file_path, mode='w', encoding='utf-8') as f:
+      f.write(render)
 
 
 @cli.command()
@@ -135,12 +151,21 @@ def runserver():
 
 
 @cli.command()
-def reset():
+@click.option('--all', is_flag=True)
+def reset(all):
   """Reset site by removing all files."""
 
   click.confirm('Reset site and remove all files?', abort=True)
   if os.path.isdir(config['dist_dir']):
     shutil.rmtree(config['dist_dir'])
+  if all:
+    click.confirm('Remove src files as well?', abort=True)
+    for file_name in os.listdir(config['src_dir']):
+      file_path = os.path.join(config['src_dir'], file_name)
+      if os.path.isfile(file_path):
+        os.remove(file_path)
+      elif os.path.isdir(file_path):
+        shutil.rmtree(file_path)
 
 
 if __name__ == '__main__':
