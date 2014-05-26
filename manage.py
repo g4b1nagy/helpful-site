@@ -3,18 +3,31 @@
 
 import atexit
 import codecs
-import datetime
 import os
 import shutil
 import subprocess
-import sys
-import time
+from datetime import datetime
 
 import click
 import jinja2
-import markdown
-import slugify
 import yaml
+from markdown import markdown
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
+from slugify import slugify
+
+
+
+
+
+# lexer = get_lexer_by_name('python', stripall=True)
+# formatter = HtmlFormatter(linenos=True)
+# result = highlight(code, lexer, formatter)
+# print result
+
+
+
 
 
 @click.group()
@@ -26,16 +39,16 @@ def cli():
 def new():
   """Create a new post or page."""
 
-  date = datetime.datetime.now()
+  date = datetime.now()
   file_type = click.prompt('Create new post/page', type=click.Choice(['post', 'page']), default='post')
   page_attributes['title'] = click.prompt('Title', default='New ' + file_type)
   page_attributes['date'] = date.strftime(config['date_format'])
   page_attributes['template'] = config['default_template']
   if file_type == 'post':
     file_name = (date.strftime(config['link_prefix_format']) +
-                  slugify.slugify(page_attributes['title']) + '.md')
+                  slugify(page_attributes['title']) + '.md')
   else:
-    file_name = slugify.slugify(page_attributes['title']) + '.md'
+    file_name = slugify(page_attributes['title']) + '.md'
   file_path = os.path.join(config['src_dir'], file_name)
   if os.path.isfile(file_path):
     click.echo('A page with the same name already exists.')
@@ -72,15 +85,16 @@ def build():
       with codecs.open(file_path, mode='r', encoding='utf-8') as f:
         data = f.read().split(config['delimiter'])
         page_attributes = yaml.load(data[1])
-        page_attributes['content'] = markdown.markdown(data[2], output_format='html5')
-      page_attributes['date'] = datetime.datetime.strptime(page_attributes['date'], config['date_format'])
-      page_attributes['categories'] = [slugify.slugify(x.strip()) for x in page_attributes['categories'].split(',') if x.strip() != '']
+        # page_attributes['content'] = markdown(data[2], output_format='html5')
+        page_attributes['content'] = data[2]
+      page_attributes['date'] = datetime.strptime(page_attributes['date'], config['date_format'])
+      page_attributes['categories'] = [slugify(x.strip()) for x in page_attributes['categories'].split(',') if x.strip() != '']
       [categories.add(x) for x in page_attributes['categories']]
       page_attributes['file_name'] = file_name.replace('.md', '')
       page_attributes['link'] = '/' + file_name.replace('.md', '') + '/'
       try:
         # files that start with 'link_prefix_format' are considered posts
-        datetime.datetime.strptime(file_name[:link_prefix_len + 2], config['link_prefix_format'])
+        datetime.strptime(file_name[:link_prefix_len + 2], config['link_prefix_format'])
         posts.append(page_attributes)
       except ValueError:
         # the rest of them are considered pages
