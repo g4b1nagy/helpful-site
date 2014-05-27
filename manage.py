@@ -45,10 +45,10 @@ def new():
   date = datetime.now()
   file_type = click.prompt('Create new post/page', type=click.Choice(['post', 'page']), default='post')
   page_attributes['title'] = click.prompt('Title', default='New ' + file_type)
-  page_attributes['date'] = date.strftime(config['date_format'])
+  page_attributes['date'] = date.strftime(config['internal_date_format'])
   page_attributes['template'] = config['default_template']
   if file_type == 'post':
-    file_name = (date.strftime(config['link_prefix_format']) +
+    file_name = (date.strftime(config['post_prefix_format']) +
                   slugify(page_attributes['title']) + '.md')
   else:
     file_name = slugify(page_attributes['title']) + '.md'
@@ -89,13 +89,13 @@ def build(prod):
   """Build pages."""
 
   if not prod:
-    config['site_dir'] = '/'
+    config['site_root'] = '/'
 
   click.echo('Building pages')
   posts = []
   pages = []
   categories = set()
-  link_prefix_len = len(config['link_prefix_format'])
+  link_prefix_len = len(config['post_prefix_format'])
   code_regex = re.compile(r'//code (?P<syntax>[a-zA-Z]+)(?P<code>.*?)//code', re.DOTALL)
   # read the files from the src directory
   for file_name in os.listdir(config['src_dir']):
@@ -108,14 +108,14 @@ def build(prod):
 
         page_attributes['content'] = markdown(re.sub(code_regex, uhu, data[2]), output_format='html5')
         page_attributes['excerpt'] = markdown(re.sub(code_regex, '`here-be-code`', data[2])[:config['excerpt_length']].rpartition(' ')[0] + '...' , output_format='html5')
-      page_attributes['date'] = datetime.strptime(page_attributes['date'], config['date_format'])
+      page_attributes['date'] = datetime.strptime(page_attributes['date'], config['internal_date_format'])
       page_attributes['categories'] = [{'name': x.strip().lower(), 'link': '/category/' + slugify(x.strip()) + '/'} for x in page_attributes['categories'].split(',') if x.strip() != '']
       [categories.add(x['name']) for x in page_attributes['categories']]
       page_attributes['file_name'] = file_name.replace('.md', '')
       page_attributes['link'] = '/' + file_name.replace('.md', '') + '/'
       try:
-        # files that start with 'link_prefix_format' are considered posts
-        datetime.strptime(file_name[:link_prefix_len + 2], config['link_prefix_format'])
+        # files that start with 'post_prefix_format' are considered posts
+        datetime.strptime(file_name[:link_prefix_len + 2], config['post_prefix_format'])
         posts.append(page_attributes)
       except ValueError:
         # the rest of them are considered pages

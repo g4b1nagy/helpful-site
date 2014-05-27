@@ -1,49 +1,76 @@
 # ========================================================================
+# link settings
+# ========================================================================
+
+# if you serve your site from http://www.example.com/blog/, you should set
+# this to /blog/ and run "./manage.py build --prod" before publishing it
+site_root: /
+
+# links to posts will follow this format i.e. 2014-05-10-post-title
+post_prefix_format: "%Y-%m-%d-"
+
+# add "Previous Post" and "Next Post" links to posts
+prev_next_links: true
+
+
+# ========================================================================
+# formatting settings
+# ========================================================================
+
+# length of post excerpts, in characters
+excerpt_length: 384
+
+# show line numbers in code blocks
+code_line_numbers: true
+
+
+# ========================================================================
+# template settings
+# ========================================================================
+
+home_template: home.html
+default_template: post.html
+category_template: category.html
+
+
+# ========================================================================
+# minification settings
+# ========================================================================
+
+output: dist/assets/
+
+css:
+  # output a file name "style.min.css"
+  style:
+    # based on files that match these rules
+    - src/css/*.css
+
+javascript:
+  # output a file named "script.min.js"
+  script:
+    # based on files that match these rules
+    - src/js/*.js
+
+js_minifier_options:
+  # mangle variable names
+  mangle: true
+  # mangle names of variables in the global scope
+  mangle_toplevel: true
+
+
+# ========================================================================
 # directory settings
 # ========================================================================
-site_dir: /
+
 src_dir: src/
 dist_dir: dist/
 template_dir: config/templates/
 
 
 # ========================================================================
-# template settings
+# system settings
 # ========================================================================
-home_template: home.html
-category_template: category.html
-default_template: post.html
 
-
-# ========================================================================
-# link settings
-# ========================================================================
-link_prefix_format: "%Y-%m-%d-"
-prev_next_links: true
-
-
-# ========================================================================
-# minification settings
-# ========================================================================
-output: dist/assets/
-css:
-  style:
-    - src/css/*.css
-javascript:
-  script:
-    - src/js/*.js
-
-
-# ========================================================================
-# formatting options
-# ========================================================================
-excerpt_length: 384
-date_format: "%Y-%m-%d %H:%M"
-code_line_numbers: true
-
-
-# ========================================================================
-# hipster settings (they don't fit in any category)
-# ========================================================================
+internal_date_format: "%Y-%m-%d %H:%M"
 delimiter: "===========================================================================\n"
 port: "3000"
