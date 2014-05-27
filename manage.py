@@ -116,6 +116,7 @@ def build(prod):
       [categories.add(x['name']) for x in page_attributes['categories']]
       page_attributes['file_name'] = file_name.replace('.md', '')
       page_attributes['link'] = urljoin(config['site_root'], file_name.replace('.md', '')) + '/'
+      page_attributes['site_root'] = config['site_root']
       try:
         # files that start with 'post_prefix_format' are considered posts
         datetime.strptime(file_name[:link_prefix_len + 2], config['post_prefix_format'])
@@ -146,7 +147,7 @@ def build(prod):
       f.write(render)
   # write the index.html
   template = environment.get_template(config['home_template'])
-  render = template.render({'posts': posts})
+  render = template.render({'posts': posts, 'site_root': config['site_root']})
   file_path = os.path.join(config['dist_dir'], 'index.html')
   with codecs.open(file_path, mode='w', encoding='utf-8') as f:
     f.write(render)
@@ -157,7 +158,7 @@ def build(prod):
     dir_path = os.path.join(config['dist_dir'], 'category', slugify(category))
     if not os.path.exists(dir_path):
       os.makedirs(dir_path)
-    render = template.render({'category': category, 'posts': posts_in_category})
+    render = template.render({'category': category, 'posts': posts_in_category, 'site_root': config['site_root']})
     file_path = os.path.join(dir_path, 'index.html')
     with codecs.open(file_path, mode='w', encoding='utf-8') as f:
       f.write(render)
