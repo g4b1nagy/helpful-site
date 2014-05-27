@@ -89,8 +89,12 @@ def uhu(matchobj):
 
 
 @cli.command()
-def build():
+@click.option('--prod', is_flag=True)
+def build(prod):
   """Build pages."""
+
+  if not prod:
+    config['site_dir'] = '/'
 
   click.echo('Building pages')
   posts = []
@@ -106,14 +110,6 @@ def build():
       with codecs.open(file_path, mode='r', encoding='utf-8') as f:
         data = f.read().split(config['delimiter'])
         page_attributes = yaml.load(data[1])
-
-
-
-
-
-
-
-
 
         page_attributes['content'] = markdown(re.sub(code_regex, uhu, data[2]), output_format='html5')
         page_attributes['excerpt'] = markdown(re.sub(code_regex, '`here-be-code`', data[2])[:config['excerpt_length']].rpartition(' ')[0] + '...' , output_format='html5')
@@ -180,7 +176,7 @@ def update(context):
   """Minify + build."""
 
   context.invoke(mini)
-  context.invoke(build)
+  context.invoke(build, False)
 
 
 @cli.command()
