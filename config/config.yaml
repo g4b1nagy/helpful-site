@@ -20,8 +20,11 @@ javascript:
   script:
     - src/js/*.js
 
-# hipster settings (they don't fit in any category)
+# formatting options
 excerpt_length: 384
 date_format: "%Y-%m-%d %H:%M"
+code_line_numbers: true
+
+# hipster settings (they don't fit in any category)
 delimiter: "===========================================================================\n"
 port: "3000"

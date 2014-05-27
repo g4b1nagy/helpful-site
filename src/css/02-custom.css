@@ -10,3 +10,15 @@
 .site-head a:hover {
   color: #57a3e8;
 }
+
+pre {
+  padding: 20px 20px;
+  font-size: .6em;
+  line-height: 1.4em;
+  border: 0;
+  background-color: #202020;
+}
+
+.highlight ol {
+  margin: 0 -10px;
+}

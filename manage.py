@@ -4,6 +4,7 @@
 import atexit
 import codecs
 import os
+import re
 import shutil
 import subprocess
 from datetime import datetime
@@ -19,12 +20,19 @@ from slugify import slugify
 
 
 
+class HtmlListFormatter(HtmlFormatter):
+  def wrap(self, source, outfile):
+    return self._wrap_div(self._wrap_pre(self._wrap_list(source)))
 
+  def _wrap_list(self, source):
+    yield 0, '<ol>'
+    for i, t in source:
+      if i == 1:
+        # it's a line of formatted code
+        t = '<li><div class="line">%s</div></li>' % t
+      yield i, t
+    yield 0, '</ol>'
 
-# lexer = get_lexer_by_name('python', stripall=True)
-# formatter = HtmlFormatter(linenos=True)
-# result = highlight(code, lexer, formatter)
-# print result
 
 
 
@@ -68,6 +76,18 @@ def mini():
   subprocess.call(['crammit', '-c', 'config/config.yaml'])
 
 
+
+def uhu(matchobj):
+  lexer = get_lexer_by_name(matchobj.group('syntax').strip().lower(), stripall=True)
+  if config['code_line_numbers']:
+    formatter = HtmlListFormatter()
+  else:
+    formatter = HtmlFormatter()
+  return highlight(matchobj.group('code'), lexer, formatter)
+
+
+
+
 @cli.command()
 def build():
   """Build pages."""
@@ -77,6 +97,7 @@ def build():
   pages = []
   categories = set()
   link_prefix_len = len(config['link_prefix_format'])
+  code_regex = re.compile(r'//code (?P<syntax>[a-zA-Z]+)(?P<code>.*?)//code', re.DOTALL)
   # read the files from the src directory
   for file_name in os.listdir(config['src_dir']):
     file_path = os.path.join(config['src_dir'], file_name)
@@ -85,8 +106,17 @@ def build():
       with codecs.open(file_path, mode='r', encoding='utf-8') as f:
         data = f.read().split(config['delimiter'])
         page_attributes = yaml.load(data[1])
-        page_attributes['content'] = markdown(data[2], output_format='html5')
-        page_attributes['excerpt'] = markdown(data[2][:config['excerpt_length']].rpartition(' ')[0] + ' ...' , output_format='html5')
+
+
+
+
+
+
+
+
+
+        page_attributes['content'] = markdown(re.sub(code_regex, uhu, data[2]), output_format='html5')
+        page_attributes['excerpt'] = markdown(re.sub(code_regex, '`here-be-code`', data[2])[:config['excerpt_length']].rpartition(' ')[0] + '...' , output_format='html5')
       page_attributes['date'] = datetime.strptime(page_attributes['date'], config['date_format'])
       page_attributes['categories'] = [slugify(x.strip()) for x in page_attributes['categories'].split(',') if x.strip() != '']
       [categories.add(x) for x in page_attributes['categories']]
