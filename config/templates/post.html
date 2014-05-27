@@ -4,7 +4,18 @@
   {% include "partials/header.html" %}
   <main class="content post-template" role="main">
     <article class="post">
-      <span class="post-meta"><time datetime="{{ date.strftime('%Y-%m-%d') }}">{{ date.strftime('%d %b %Y') }}</time></span>
+      <span class="post-meta">
+        <time datetime="{{ date.strftime('%Y-%m-%d') }}">{{ date.strftime('%d %b %Y') }}</time>
+        {% if categories %}
+          in
+          {% for category in categories %}
+            <a href="{{ category.link }}">{{ category.name|capitalize }}</a>
+            {%- if not loop.last -%}
+              ,
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </span>
       <h1 class="post-title">{{ title }}</h1>
       <section class="post-excerpt">
         {{ content }}

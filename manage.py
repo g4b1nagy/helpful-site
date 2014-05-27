@@ -19,7 +19,6 @@ from pygments.formatters import HtmlFormatter
 from slugify import slugify
 
 
-
 class HtmlListFormatter(HtmlFormatter):
   def wrap(self, source, outfile):
     return self._wrap_div(self._wrap_pre(self._wrap_list(source)))
@@ -32,10 +31,6 @@ class HtmlListFormatter(HtmlFormatter):
         t = '<li><div class="line">%s</div></li>' % t
       yield i, t
     yield 0, '</ol>'
-
-
-
-
 
 
 @click.group()
@@ -114,8 +109,8 @@ def build(prod):
         page_attributes['content'] = markdown(re.sub(code_regex, uhu, data[2]), output_format='html5')
         page_attributes['excerpt'] = markdown(re.sub(code_regex, '`here-be-code`', data[2])[:config['excerpt_length']].rpartition(' ')[0] + '...' , output_format='html5')
       page_attributes['date'] = datetime.strptime(page_attributes['date'], config['date_format'])
-      page_attributes['categories'] = [x.strip().lower() for x in page_attributes['categories'].split(',') if x.strip() != '']
-      [categories.add(x) for x in page_attributes['categories']]
+      page_attributes['categories'] = [{'name': x.strip().lower(), 'link': '/category/' + slugify(x.strip()) + '/'} for x in page_attributes['categories'].split(',') if x.strip() != '']
+      [categories.add(x['name']) for x in page_attributes['categories']]
       page_attributes['file_name'] = file_name.replace('.md', '')
       page_attributes['link'] = '/' + file_name.replace('.md', '') + '/'
       try:
@@ -158,9 +153,12 @@ def build(prod):
   with codecs.open(file_path, mode='w', encoding='utf-8') as f:
     f.write(render)
 
+
+
+  # write the category files
   template = environment.get_template(config['category_template'])
   for category in categories:
-    posts_in_category = [x for x in posts if category in x['categories']]
+    posts_in_category = [x for x in posts if category in [y['name'] for y in x['categories']]]
     dir_path = os.path.join(config['dist_dir'], 'category', slugify(category))
     if not os.path.exists(dir_path):
       os.makedirs(dir_path)
