@@ -10,7 +10,7 @@
           <h2 class="post-title"><a href="{{ post.link }}">{{ post.title }}</a></h2>
         </header>
         <section class="post-excerpt">
-          {{ post.content|truncate(384) }}
+          {{ post.excerpt }}
         </section>
       </article>
     {% endfor %}

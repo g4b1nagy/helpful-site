@@ -21,6 +21,7 @@ javascript:
     - src/js/*.js
 
 # hipster settings (they don't fit in any category)
+excerpt_length: 384
 date_format: "%Y-%m-%d %H:%M"
 delimiter: "===========================================================================\n"
 port: "3000"

@@ -85,8 +85,8 @@ def build():
       with codecs.open(file_path, mode='r', encoding='utf-8') as f:
         data = f.read().split(config['delimiter'])
         page_attributes = yaml.load(data[1])
-        # page_attributes['content'] = markdown(data[2], output_format='html5')
-        page_attributes['content'] = data[2]
+        page_attributes['content'] = markdown(data[2], output_format='html5')
+        page_attributes['excerpt'] = markdown(data[2][:config['excerpt_length']].rpartition(' ')[0] + ' ...' , output_format='html5')
       page_attributes['date'] = datetime.strptime(page_attributes['date'], config['date_format'])
       page_attributes['categories'] = [slugify(x.strip()) for x in page_attributes['categories'].split(',') if x.strip() != '']
       [categories.add(x) for x in page_attributes['categories']]
