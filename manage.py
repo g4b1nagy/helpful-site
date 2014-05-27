@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 from datetime import datetime
+from posixpath import join as urljoin
 
 import click
 import jinja2
@@ -18,20 +19,35 @@ from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 from slugify import slugify
 
+# ========================================================================
+# utils
+# ========================================================================
 
 class HtmlListFormatter(HtmlFormatter):
   def wrap(self, source, outfile):
     return self._wrap_div(self._wrap_pre(self._wrap_list(source)))
-
   def _wrap_list(self, source):
     yield 0, '<ol>'
     for i, t in source:
       if i == 1:
         # it's a line of formatted code
-        t = '<li><div class="line">%s</div></li>' % t
+        t = '<li><div class="line">{0}</div></li>'.format(t)
       yield i, t
     yield 0, '</ol>'
 
+
+def highlight_match(matchobj):
+  lexer = get_lexer_by_name(matchobj.group('syntax').strip().lower(), stripall=True)
+  if config['code_line_numbers']:
+    formatter = HtmlListFormatter()
+  else:
+    formatter = HtmlFormatter()
+  return highlight(matchobj.group('code'), lexer, formatter)
+
+
+# ========================================================================
+# commands
+# ========================================================================
 
 @click.group()
 def cli():
@@ -47,6 +63,7 @@ def new():
   page_attributes['title'] = click.prompt('Title', default='New ' + file_type)
   page_attributes['date'] = date.strftime(config['internal_date_format'])
   page_attributes['template'] = config['default_template']
+  page_attributes['categories'] = ''
   if file_type == 'post':
     file_name = (date.strftime(config['post_prefix_format']) +
                   slugify(page_attributes['title']) + '.md')
@@ -71,18 +88,6 @@ def mini():
   subprocess.call(['crammit', '-c', 'config/config.yaml'])
 
 
-
-def uhu(matchobj):
-  lexer = get_lexer_by_name(matchobj.group('syntax').strip().lower(), stripall=True)
-  if config['code_line_numbers']:
-    formatter = HtmlListFormatter()
-  else:
-    formatter = HtmlFormatter()
-  return highlight(matchobj.group('code'), lexer, formatter)
-
-
-
-
 @cli.command()
 @click.option('--prod', is_flag=True)
 def build(prod):
@@ -90,7 +95,6 @@ def build(prod):
 
   if not prod:
     config['site_root'] = '/'
-
   click.echo('Building pages')
   posts = []
   pages = []
@@ -101,18 +105,17 @@ def build(prod):
   for file_name in os.listdir(config['src_dir']):
     file_path = os.path.join(config['src_dir'], file_name)
     if os.path.isfile(file_path):
-
       with codecs.open(file_path, mode='r', encoding='utf-8') as f:
         data = f.read().split(config['delimiter'])
         page_attributes = yaml.load(data[1])
-
-        page_attributes['content'] = markdown(re.sub(code_regex, uhu, data[2]), output_format='html5')
+        page_attributes['content'] = markdown(re.sub(code_regex, highlight_match, data[2]), output_format='html5')
         page_attributes['excerpt'] = markdown(re.sub(code_regex, '`here-be-code`', data[2])[:config['excerpt_length']].rpartition(' ')[0] + '...' , output_format='html5')
       page_attributes['date'] = datetime.strptime(page_attributes['date'], config['internal_date_format'])
-      page_attributes['categories'] = [{'name': x.strip().lower(), 'link': '/category/' + slugify(x.strip()) + '/'} for x in page_attributes['categories'].split(',') if x.strip() != '']
+      # create a list of {'name': 'some name', 'link': '/category/some name'} for each category
+      page_attributes['categories'] = [{'name': x.strip().lower(), 'link': urljoin(config['site_root'], 'category', slugify(x.strip())) + '/'} for x in page_attributes['categories'].split(',') if x.strip() != '']
       [categories.add(x['name']) for x in page_attributes['categories']]
       page_attributes['file_name'] = file_name.replace('.md', '')
-      page_attributes['link'] = '/' + file_name.replace('.md', '') + '/'
+      page_attributes['link'] = urljoin(config['site_root'], file_name.replace('.md', '')) + '/'
       try:
         # files that start with 'post_prefix_format' are considered posts
         datetime.strptime(file_name[:link_prefix_len + 2], config['post_prefix_format'])
@@ -120,21 +123,17 @@ def build(prod):
       except ValueError:
         # the rest of them are considered pages
         pages.append(page_attributes)
-
   # sort posts from newest to oldest
   posts = sorted(posts, key=lambda x: x['date'], reverse=True)
   categories = list(categories)
-
   # add prev and next links to posts
   if config['prev_next_links']:
     for i in range(0, len(posts)):
       if i + 1 <= len(posts) - 1:
-        posts[i]['prev_post'] = '/' + posts[i + 1]['file_name'] + '/'
+        posts[i]['prev_post'] = urljoin(config['site_root'], posts[i + 1]['file_name']) + '/'
       if i - 1 >= 0:
-        posts[i]['next_post'] = '/' + posts[i - 1]['file_name'] + '/'
-
+        posts[i]['next_post'] = urljoin(config['site_root'], posts[i - 1]['file_name']) + '/'
   environment = jinja2.Environment(loader=jinja2.FileSystemLoader(config['template_dir']))
-
   # write the .html files
   for page in posts + pages:
     dir_path = os.path.join(config['dist_dir'], page['file_name'])
@@ -145,16 +144,12 @@ def build(prod):
     file_path = os.path.join(dir_path, 'index.html')
     with codecs.open(file_path, mode='w', encoding='utf-8') as f:
       f.write(render)
-
   # write the index.html
   template = environment.get_template(config['home_template'])
   render = template.render({'posts': posts})
   file_path = os.path.join(config['dist_dir'], 'index.html')
   with codecs.open(file_path, mode='w', encoding='utf-8') as f:
     f.write(render)
-
-
-
   # write the category files
   template = environment.get_template(config['category_template'])
   for category in categories:

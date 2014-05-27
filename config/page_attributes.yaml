@@ -1,8 +1,17 @@
 # attributes that can be customized on a per page basis
 # when left empty, the default values are used
-categories: ""
+
+# page description
 description: ""
+
+# url to an icon file
 icon: ""
+
+# absolute url to an image that represents the page
 ogimage: ""
+
+# url to a js file
 script: ""
+
+# url to a css file
 style: ""
