@@ -11,6 +11,7 @@ template_dir: config/templates/
 # template settings
 # ========================================================================
 home_template: home.html
+category_template: category.html
 default_template: post.html
 
 

@@ -1,0 +1,29 @@
+{% extends "layouts/default.html" %}
+
+{% block content %}
+  {% include "partials/header.html" %}
+  <main class="content home-template" role="main">
+    <header class="tag-archive-header">
+      <h1>{{ category|capitalize }}</h1>
+    </header>
+    {% for post in posts %}
+      <article class="post">
+        <header class="post-header">
+          <span class="post-meta"><time datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%d %b %Y') }}</time></span>
+          <h2 class="post-title"><a href="{{ post.link }}">{{ post.title }}</a></h2>
+        </header>
+        <section class="post-excerpt">
+          {{ post.excerpt }}
+        </section>
+      </article>
+    {% endfor %}
+    <!--
+    <nav class="pagination" role="navigation">
+      <a class="newer-posts" href="/">&larr; Newer Posts</a>
+      <span class="page-number">Page 2 of 3</span>
+      <a class="older-posts" href="/page/3/">Older Posts &rarr;</a>
+    </nav>
+    -->
+  </main>
+  {% include "partials/footer.html" %}
+{% endblock %}
