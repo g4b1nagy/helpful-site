@@ -3,7 +3,12 @@
 # ========================================================================
 
 # if you serve your site from http://www.example.com/blog/, you should set
-# this to /blog/ and run "./manage.py build --prod" before publishing it
+# this to /blog/, update the css and js urls in the layout file i.e.
+# /assets/style.min.css becomes /blog/assets/style.min.css and
+# /assets/script.min.js becomes /blog/assets/script.min.js, update the link
+# in the header partial file i.e.
+# <a href="/">Helpful Site</a> becomes <a href="/blog/">Helpful Site</a>,
+# and run "./manage.py build --prod" before publishing it
 site_root: /
 
 # links to posts will follow this format i.e. 2014-05-10-post-title
