@@ -18,7 +18,7 @@ Specifically, Helpful Site provides you with:
 * post categories
 * home and category pages that provide lists of posts
 * previous and next post links
-* support for page specific properties such as description, ogimage, style
+* support for per page attributes such as description, ogimage, style
 and script
 * syntax highlighting of code blocks
 * the great looking Casper theme from [Ghost](https://ghost.org/)
