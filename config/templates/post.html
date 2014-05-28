@@ -4,7 +4,7 @@
 
 {% block content %}
   <main class="content" role="main">
-    <article class="post">
+    <article class="post {% if prev_post or next_post %}post-border{% endif %}">
       <header class="post-header">
         <a class="blog-logo" href="{{ site_root }}">
           <span class="blog-title">Helpful Site</span>
