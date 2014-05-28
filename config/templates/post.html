@@ -3,9 +3,13 @@
 {% block body_class %}post-template{% endblock %}
 
 {% block content %}
-  {% include "partials/header.html" %}
   <main class="content" role="main">
     <article class="post">
+      <header class="post-header">
+        <a class="blog-logo" href="{{ site_root }}">
+          <span class="blog-title">Helpful Site</span>
+        </a>
+      </header>
       <span class="post-meta">
         <time datetime="{{ date.strftime('%Y-%m-%d') }}">{{ date.strftime('%d %b %Y') }}</time>
         {% if categories %}
