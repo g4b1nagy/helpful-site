@@ -54,19 +54,19 @@ Got a streak of geek? We've got you covered there, too. You can write inline `<c
 @cli.command()
 @click.option('--all', is_flag=True)
 def reset(all):
-    """Reset site by removing all files."""
+  """Reset site by removing all files."""
 
-    click.confirm('Reset site and remove all files?', abort=True)
-    if os.path.isdir(config['dist_dir']):
-        shutil.rmtree(config['dist_dir'])
-    if all:
-        click.confirm('Remove source files as well?', abort=True)
-        for file_name in os.listdir(config['src_dir']):
-            file_path = os.path.join(config['src_dir'], file_name)
-            if os.path.isfile(file_path):
-                os.remove(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
+  click.confirm('Reset site and remove all files?', abort=True)
+  if os.path.isdir(config['dist_dir']):
+    shutil.rmtree(config['dist_dir'])
+  if all:
+    click.confirm('Remove source files as well?', abort=True)
+    for file_name in os.listdir(config['src_dir']):
+      file_path = os.path.join(config['src_dir'], file_name)
+      if os.path.isfile(file_path):
+        os.remove(file_path)
+      elif os.path.isdir(file_path):
+        shutil.rmtree(file_path)
 //code
 
 ### Ready for a Break?
