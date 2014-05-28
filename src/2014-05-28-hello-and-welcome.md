@@ -26,7 +26,9 @@ Writing in Markdown is really easy. In the left hand panel of Ghost, you simply 
 
 or with numbers!
 
-1.  Remember to buy some milk2.  Drink the milk3.  Tweet that I remembered to buy the milk, and drank it
+1.  Remember to buy some milk
+2.  Drink the milk
+3.  Tweet that I remembered to buy the milk, and drank it
 
 ### Links
 
