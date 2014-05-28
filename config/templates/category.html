@@ -1,19 +1,21 @@
 {% extends "layouts/default.html" %}
 
+{% block body_class %}tag-template{% endblock %}
+
 {% block content %}
   {% include "partials/header.html" %}
-  <main class="content home-template" role="main">
+  <main class="content" role="main">
     <header class="tag-archive-header">
       <h1>{{ category|capitalize }}</h1>
     </header>
     {% include "partials/posts.html" %}
-    <!--
-    <nav class="pagination" role="navigation">
-      <a class="newer-posts" href="/">&larr; Newer Posts</a>
-      <span class="page-number">Page 2 of 3</span>
-      <a class="older-posts" href="/page/3/">Older Posts &rarr;</a>
-    </nav>
-    -->
+    {# pagination is not yet implemented, but this is what it would look like
+      <nav class="pagination" role="navigation">
+        <a class="newer-posts" href="/">&larr; Newer Posts</a>
+        <span class="page-number">Page 2 of 3</span>
+        <a class="older-posts" href="/page/3/">Older Posts &rarr;</a>
+      </nav>
+    #}
   </main>
   {% include "partials/footer.html" %}
 {% endblock %}

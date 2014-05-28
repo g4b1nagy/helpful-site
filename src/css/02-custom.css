@@ -1,5 +1,5 @@
 /* =======================================================================
- * Casper theme overwrites
+ * casper theme overwrites
  * ======================================================================= */
 
 .site-head {
@@ -14,6 +14,11 @@
 .site-head a:hover {
   color: #57a3e8;
 }
+
+.post-template .post {
+  border-bottom: #ebf2f6 1px solid;
+}
+
 
 /* =======================================================================
  * code block styles

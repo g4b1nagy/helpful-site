@@ -1,8 +1,10 @@
 {% extends "layouts/default.html" %}
 
+{% block body_class %}post-template{% endblock %}
+
 {% block content %}
   {% include "partials/header.html" %}
-  <main class="content post-template" role="main">
+  <main class="content" role="main">
     <article class="post">
       <span class="post-meta">
         <time datetime="{{ date.strftime('%Y-%m-%d') }}">{{ date.strftime('%d %b %Y') }}</time>
@@ -21,15 +23,17 @@
         {{ content }}
       </section>
     </article>
-    <nav class="pagination" role="navigation">
-      {% if prev_post %}
-        <a class="newer-posts" href="{{ prev_post }}">&larr; Previous Post</a>
-      {% endif %}
-      <span class="page-number"></span>
-      {% if next_post %}
-        <a class="older-posts" href="{{ next_post }}">Next Post &rarr;</a>
-      {% endif %}
-    </nav>
+    {% if prev_post or next_post %}
+      <nav class="pagination" role="navigation">
+        {% if prev_post %}
+          <a class="newer-posts" href="{{ prev_post }}">&larr; Previous Post</a>
+        {% endif %}
+        <span class="page-number"></span>
+        {% if next_post %}
+          <a class="older-posts" href="{{ next_post }}">Next Post &rarr;</a>
+        {% endif %}
+      </nav>
+    {% endif %}
   </main>
   {% include "partials/footer.html" %}
 {% endblock %}

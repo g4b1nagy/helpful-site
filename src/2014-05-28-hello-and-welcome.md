@@ -1,18 +1,16 @@
 ===========================================================================
-categories: 'yahoo, smiley'
-date: 2014-05-26 16:06
+categories: 'getting started, examples'
+date: 2014-05-28 09:10
 description: ''
 icon: ''
 ogimage: ''
 script: ''
 style: ''
 template: post.html
-title: !!python/unicode 'Getting started'
+title: !!python/unicode 'Hello and welcome'
 ===========================================================================
 
-                
-
-You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at `&lt;your blog URL&gt;/ghost/`. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!
+You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at `<your blog URL>/ghost/`. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!
 
 ## Getting Started
 
@@ -50,32 +48,26 @@ Sometimes a link isn't enough, you want to quote someone on what they've said. I
 
 ### Working with Code
 
-Got a streak of geek? We've got you covered there, too. You can write inline `&lt;code&gt;` blocks really easily with back ticks. Want to show off something more comprehensive? 4 spaces of indentation gets you there.
-
+Got a streak of geek? We've got you covered there, too. You can write inline `<code>` blocks really easily with back ticks. Want to show off something more comprehensive? 4 spaces of indentation gets you there.
 
 //code python
-
-
 @cli.command()
 @click.option('--all', is_flag=True)
 def reset(all):
-  """Reset site by removing all files."""
+    """Reset site by removing all files."""
 
-  click.confirm('Reset site and remove all files?', abort=True)
-  if os.path.isdir(config['dist_dir']):
-    shutil.rmtree(config['dist_dir'])
-  if all:
-    click.confirm('Remove src files as well?', abort=True)
-    for file_name in os.listdir(config['src_dir']):
-      file_path = os.path.join(config['src_dir'], file_name)
-      if os.path.isfile(file_path):
-        os.remove(file_path)
-      elif os.path.isdir(file_path):
-        shutil.rmtree(file_path)
-
-
+    click.confirm('Reset site and remove all files?', abort=True)
+    if os.path.isdir(config['dist_dir']):
+        shutil.rmtree(config['dist_dir'])
+    if all:
+        click.confirm('Remove source files as well?', abort=True)
+        for file_name in os.listdir(config['src_dir']):
+            file_path = os.path.join(config['src_dir'], file_name)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
 //code
-
 
 ### Ready for a Break?
 

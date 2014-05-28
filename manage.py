@@ -193,7 +193,7 @@ def reset(all):
   if os.path.isdir(config['dist_dir']):
     shutil.rmtree(config['dist_dir'])
   if all:
-    click.confirm('Remove src files as well?', abort=True)
+    click.confirm('Remove source files as well?', abort=True)
     for file_name in os.listdir(config['src_dir']):
       file_path = os.path.join(config['src_dir'], file_name)
       if os.path.isfile(file_path):
