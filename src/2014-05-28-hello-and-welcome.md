@@ -10,13 +10,15 @@ template: post.html
 title: !!python/unicode 'Hello and welcome'
 ===========================================================================
 
-You're live! Nice. We've put together a little post to introduce you to the Ghost editor and get you started. You can manage your content by signing in to the admin area at `<your blog URL>/ghost/`. When you arrive, you can select this post from a list on the left and see a preview of it on the right. Click the little pencil icon at the top of the preview to edit this post and read the next section!
+You're live! Nice. The great people at [Ghost](https://ghost.org/) wrote a great post showcasing their Casper theme (the one we're also using) and since I probably won't be able to do a better job at showcasing their work, I'm providing the original post (with adjustments) bellow.
+
+If you're looking for documentation on how to use the site generator, feel free to check out the project's [GitHub page](https://github.com/g4b1nagy/helpful-site).
 
 ## Getting Started
 
-Ghost uses something called Markdown for writing. Essentially, it's a shorthand way to manage your post formatting as you write!
+Helpful Site uses something called Markdown for writing. Essentially, it's a shorthand way to manage your post formatting as you write!
 
-Writing in Markdown is really easy. In the left hand panel of Ghost, you simply write as you normally would. Where appropriate, you can use _shortcuts_ to **style** your content. For example, a list:
+Writing in Markdown is really easy. Inside every .md file, you simply write as you normally would. Where appropriate, you can use _shortcuts_ to **style** your content. For example, a list:
 
 *   Item number one
 *   Item number two
@@ -50,7 +52,10 @@ Sometimes a link isn't enough, you want to quote someone on what they've said. I
 
 ### Working with Code
 
-Got a streak of geek? We've got you covered there, too. You can write inline `<code>` blocks really easily with back ticks. Want to show off something more comprehensive? 4 spaces of indentation gets you there.
+Got a streak of geek? We've got you covered there, too. You can write inline `<code>` blocks really easily with back ticks. Want to show off something more comprehensive? Writing your code between  
+`∕∕code syntax` and  
+`∕∕code`  
+gets you there.
 
 //code python
 @cli.command()
@@ -83,4 +88,4 @@ There's one fantastic secret about Markdown. If you want, you can  write plain o
 
 <input type="text" placeholder="I'm an input field!">
 
-That should be enough to get you started. Have fun - and let us know what you think :)
+That should be enough to get you started. Have fun! :)
