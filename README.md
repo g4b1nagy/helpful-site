@@ -1,4 +1,4 @@
-helpful-site
+Helpful Site
 ============
 
 Beautifully simple static site generator in Python
