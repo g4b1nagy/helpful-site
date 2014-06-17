@@ -136,12 +136,23 @@ def build(prod):
         page_attributes['content'] = markdown(re.sub(code_block_regex,
               _highlight_match, data[2]), output_format='html5')
 
-        # eliminate any code blocks from the excerpt (they may cause problems)
-        # and render as html
+        # if the excerpt is marked out
 
-        page_attributes['excerpt'] = markdown(re.sub(code_block_regex,
-              '`here-be-code`', data[2])[:config['excerpt_length'
-              ]].rpartition(' ')[0] + '...', output_format='html5')
+        if '//more' in data[2]:
+
+          # extract it and render as html
+
+          page_attributes['excerpt'] = markdown(data[2].split('//more')[0] +
+            '...', output_format='html5')
+
+        else:
+
+          # eliminate any code blocks from the excerpt (they may cause problems)
+          # and render as html
+
+          page_attributes['excerpt'] = markdown(re.sub(code_block_regex,
+                '`here-be-code`', data[2])[:config['excerpt_length'
+                ]].rpartition(' ')[0] + '...', output_format='html5')
 
       # convert date from string to datetime instance
 
