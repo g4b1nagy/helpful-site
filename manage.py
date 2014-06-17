@@ -134,7 +134,8 @@ def build(prod):
         # add syntax highlighting and render as html
 
         page_attributes['content'] = markdown(re.sub(code_block_regex,
-              _highlight_match, data[2]), output_format='html5')
+              _highlight_match, data[2]).replace('//more', ''),
+              output_format='html5')
 
         # if the excerpt is marked out
 
