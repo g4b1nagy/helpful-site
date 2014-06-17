@@ -17,6 +17,13 @@ prev_next_links: true
 # formatting settings
 # ========================================================================
 
+
+# paginate list of posts on home page
+paginate: true
+
+# number of posts to show per page
+posts_per_page: 10
+
 # length of post excerpts, in characters
 excerpt_length: 384
 

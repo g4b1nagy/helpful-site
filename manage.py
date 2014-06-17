@@ -234,20 +234,66 @@ def build(prod):
     dir_path = os.path.join(config['dist_dir'], 'category', slugify(category))
     if not os.path.exists(dir_path):
       os.makedirs(dir_path)
-    render = template.render({'category': category,
-                             'posts': posts_in_category,
-                             'site_root': config['site_root']})
+    render = template.render({
+      'category': category,
+      'posts': posts_in_category,
+      'site_root': config['site_root'],
+    })
     file_path = os.path.join(dir_path, 'index.html')
     with codecs.open(file_path, mode='w', encoding='utf-8') as f:
       f.write(render)
 
-  # and last but not least write a html file to serve as a home page
+  # and last but not least write the html files that make up the home page
 
   template = environment.get_template(config['home_template'])
-  render = template.render({'posts': posts, 'site_root': config['site_root']})
-  file_path = os.path.join(config['dist_dir'], 'index.html')
-  with codecs.open(file_path, mode='w', encoding='utf-8') as f:
-    f.write(render)
+  if config['paginate']:
+    pages = [posts[i:i + config['posts_per_page']] for i in range(0,
+             len(posts), config['posts_per_page'])]
+    page_link_format = 'page-{0}.html'
+    for i in range(0, len(pages)):
+      if i == 0 and len(pages) > 1:
+        prev_page = None
+        next_page = page_link_format.format(i + 2)
+      elif i == 0 and len(pages) <= 1:
+        prev_page = None
+        next_page = None
+      elif i > 0 and i < len(pages) - 1:
+        if i == 1:
+          prev_page = ''
+        else:
+          prev_page = page_link_format.format(i)
+        next_page = page_link_format.format(i + 2)
+      else:
+        if i == 1:
+          prev_page = ''
+        else:
+          prev_page = page_link_format.format(i)
+        next_page = None
+      render = template.render({
+        'posts': pages[i],
+        'current_page': i + 1,
+        'page_count': len(pages),
+        'prev_page': prev_page,
+        'next_page': next_page,
+        'site_root': config['site_root'],
+        'paginate': config['paginate'],
+      })
+      if i == 0:
+        file_path = os.path.join(config['dist_dir'], 'index.html')
+      else:
+        file_path = os.path.join(config['dist_dir'],
+                                 page_link_format.format(i + 1))
+      with codecs.open(file_path, mode='w', encoding='utf-8') as f:
+        f.write(render)
+  else:
+    template = environment.get_template(config['home_template'])
+    render = template.render({
+      'posts': posts,
+      'site_root': config['site_root'],
+    })
+    file_path = os.path.join(config['dist_dir'], 'index.html')
+    with codecs.open(file_path, mode='w', encoding='utf-8') as f:
+      f.write(render)
 
 
 @cli.command()

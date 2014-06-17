@@ -17,7 +17,8 @@ Specifically, Helpful Site provides you with:
 
 * post categories
 * home and category pages that provide lists of posts
-* previous and next post links
+* pagination for the posts on the home page
+* previous post and next post links
 * ability to mark out the excerpt using the `<!--more-->` keyword
 * support for per page attributes such as description, ogimage, style
 and script
@@ -26,10 +27,6 @@ and script
 * friendly config.yaml file
 * flexible template system
 * static web server to try your site out locally
-
-but does not (yet) offer:
-
-* pagination for the post lists
 
 ### How does it work? ###
 
