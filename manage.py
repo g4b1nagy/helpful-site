@@ -134,16 +134,16 @@ def build(prod):
         # add syntax highlighting and render as html
 
         page_attributes['content'] = markdown(re.sub(code_block_regex,
-              _highlight_match, data[2]).replace('//more', ''),
+              _highlight_match, data[2]).replace('<!--more-->', ''),
               output_format='html5')
 
         # if the excerpt is marked out
 
-        if '//more' in data[2]:
+        if '<!--more-->' in data[2]:
 
           # extract it and render as html
 
-          page_attributes['excerpt'] = markdown(data[2].split('//more')[0] +
+          page_attributes['excerpt'] = markdown(data[2].split('<!--more-->')[0] +
             '...', output_format='html5')
 
         else:

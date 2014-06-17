@@ -18,7 +18,7 @@ Specifically, Helpful Site provides you with:
 * post categories
 * home and category pages that provide lists of posts
 * previous and next post links
-* ability to mark out the excerpt using the `//more` keyword
+* ability to mark out the excerpt using the `<!--more-->` keyword
 * support for per page attributes such as description, ogimage, style
 and script
 * syntax highlighting of code blocks
