@@ -37,7 +37,7 @@ To create a new page, run
 
     ./manage.py new
 
-After adding content to the page, dun
+After adding content to the page, run
 
     ./manage.py build
 
