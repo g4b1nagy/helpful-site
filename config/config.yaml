@@ -36,7 +36,8 @@ code_line_numbers: true
 # ========================================================================
 
 home_template: home.html
-default_template: post.html
+post_template: post.html
+page_template: page.html
 category_template: category.html
 
 

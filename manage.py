@@ -67,10 +67,10 @@ def new():
                            'page']), default='post')
   page_attributes['title'] = click.prompt('Title', default='New ' + page_type)
   page_attributes['date'] = date.strftime(config['internal_date_format'])
+  page_attributes['template'] = config[page_type + '_template']
 
   # set default page attribute values
 
-  page_attributes['template'] = config['default_template']
   page_attributes['categories'] = ''
   if page_type == 'post':
 
@@ -85,7 +85,7 @@ def new():
     file_name = slugify(page_attributes['title']) + '.md'
   file_path = os.path.join(config['src_dir'], file_name)
   if os.path.isfile(file_path):
-    click.echo('A page with the same name already exists.')
+    click.echo('A file with the same name already exists.')
   else:
     with open(file_path, 'w') as f:
       f.write(config['delimiter'])
