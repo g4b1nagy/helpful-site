@@ -302,7 +302,7 @@ def update(context):
   """Minify + build."""
 
   context.invoke(mini)
-  context.invoke(build, False)
+  context.invoke(build, prod=False)
 
 
 @cli.command()
