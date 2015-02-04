@@ -10,14 +10,33 @@
  * code block styles
  * ======================================================================= */
 
-pre {
-  padding: 20px 20px;
-  font-size: .7em;
-  line-height: 1.4em;
-  border: 0;
-  background-color: #202020;
+ .code-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-.highlight ol {
-  margin: 0 -10px;
+.highlighttable {
+  width: 100%;
+  margin-bottom: 0;
+  font-size: 0.85em;
+  line-height: 1.45em;
+  background-color: #202020 !important;
+  border-radius: 3px;
+}
+
+.highlighttable td {
+  border: 0;
+}
+
+pre,
+.highlighttable td,
+.highlight {
+  border: 0;
+  background-color: #202020 !important;
+  border-radius: 3px;
+}
+
+.highlighttable td:first-child {
+  padding: 5px 20px;
 }

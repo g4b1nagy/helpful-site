@@ -24,29 +24,13 @@ from slugify import slugify
 # utils
 # ========================================================================
 
-class _HtmlListFormatter(HtmlFormatter):
-
-  def wrap(self, source, outfile):
-    return self._wrap_div(self._wrap_pre(self._wrap_list(source)))
-
-  def _wrap_list(self, source):
-    yield (0, '<ol>')
-    for (i, t) in source:
-      if i == 1:
-        t = '<li><div class="line">{0}</div></li>'.format(t)
-      yield (i, t)
-    yield (0, '</ol>')
-
-
 def _highlight_match(matchobj):
 
   lexer = get_lexer_by_name(matchobj.group('syntax').strip().lower(),
                             stripall=True)
-  if config['code_line_numbers']:
-    formatter = _HtmlListFormatter()
-  else:
-    formatter = HtmlFormatter()
-  return highlight(matchobj.group('code'), lexer, formatter)
+  formatter = HtmlFormatter(linenos=config['code_line_numbers'])
+  code = highlight(matchobj.group('code'), lexer, formatter)
+  return '<div class="code-container">' + code + '</div>'
 
 
 # ========================================================================
