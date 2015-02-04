@@ -52,10 +52,6 @@ def new():
   page_attributes['title'] = click.prompt('Title', default='New ' + page_type)
   page_attributes['date'] = date.strftime(config['internal_date_format'])
   page_attributes['template'] = config[page_type + '_template']
-
-  # set default page attribute values
-
-  page_attributes['categories'] = ''
   if page_type == 'post':
 
     # i.e. "2014-05-10-post-title.md"
@@ -71,7 +67,7 @@ def new():
   if os.path.isfile(file_path):
     click.echo('A file with the same name already exists.')
   else:
-    with open(file_path, 'w') as f:
+    with codecs.open(file_path, 'w', encoding='utf-8') as f:
       f.write(config['delimiter'])
       f.write(yaml.dump(page_attributes, default_flow_style=False))
       f.write(config['delimiter'])
@@ -322,9 +318,9 @@ def reset(all):
 
 if __name__ == '__main__':
   config_path = os.path.join('config', 'config.yaml')
-  with open(config_path, 'r') as config_file:
+  with codecs.open(config_path, 'r', encoding='utf-8') as config_file:
     config = yaml.load(config_file)
   page_attributes_path = os.path.join('config', 'page_attributes.yaml')
-  with open(page_attributes_path, 'r') as page_attributes_file:
+  with codecs.open(page_attributes_path, 'r', encoding='utf-8') as page_attributes_file:
     page_attributes = yaml.load(page_attributes_file)
   cli()
