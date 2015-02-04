@@ -8,12 +8,12 @@
     {% include "partials/posts.html" %}
     {% if paginate %}
       <nav class="pagination" role="navigation">
-        {% if prev_page != None %}
-          <a class="newer-posts" href="{{ site_root }}{{ prev_page }}">&larr; Newer Posts</a>
+        {% if prev_page %}
+          <a class="newer-posts" href="{{ prev_page }}">&larr; Newer Posts</a>
         {% endif %}
         <span class="page-number">Page {{ current_page }} of {{ page_count }}</span>
-        {% if next_page != None %}
-          <a class="older-posts" href="{{ site_root }}{{ next_page }}">Older Posts &rarr;</a>
+        {% if next_page %}
+          <a class="older-posts" href="{{ next_page }}">Older Posts &rarr;</a>
         {% endif %}
       </nav>
     {% endif %}

@@ -231,33 +231,27 @@ def build(prod):
              len(posts), config['posts_per_page'])]
     page_link_format = 'page-{0}.html'
     for i in range(0, len(pages)):
-      if i == 0 and len(pages) > 1:
-        prev_page = None
-        next_page = page_link_format.format(i + 2)
-      elif i == 0 and len(pages) <= 1:
-        prev_page = None
-        next_page = None
-      elif i > 0 and i < len(pages) - 1:
-        if i == 1:
-          prev_page = ''
-        else:
-          prev_page = page_link_format.format(i)
-        next_page = page_link_format.format(i + 2)
-      else:
-        if i == 1:
-          prev_page = ''
-        else:
-          prev_page = page_link_format.format(i)
-        next_page = None
-      render = template.render({
+      context = {
         'posts': pages[i],
         'current_page': i + 1,
         'page_count': len(pages),
-        'prev_page': prev_page,
-        'next_page': next_page,
         'site_root': config['site_root'],
         'paginate': config['paginate'],
-      })
+      }
+      if i == 0 and len(pages) > 1:
+        context['next_page'] = urljoin(config['site_root'], page_link_format.format(i + 2))
+      elif i > 0 and i < len(pages) - 1:
+        if i == 1:
+          context['prev_page'] = config['site_root']
+        else:
+          context['prev_page'] = urljoin(config['site_root'], page_link_format.format(i))
+        context['next_page'] = urljoin(config['site_root'], page_link_format.format(i + 2))
+      else:
+        if i == 1:
+          context['prev_page'] = config['site_root']
+        else:
+          context['prev_page'] = urljoin(config['site_root'], page_link_format.format(i))
+      render = template.render(context)
       if i == 0:
         file_path = os.path.join(config['dist_dir'], 'index.html')
       else:
