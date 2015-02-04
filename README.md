@@ -11,7 +11,7 @@ Helpful Site is a static site generator written on top of
 [Crammit](https://github.com/rspivak/crammit). It aims to provide a friendly
 interface for building web pages from markdown and minifying css and js files.
 You can check out a rendering of the sample pages here =>
-http://helpfulsheep.com/hs/
+http://helpfulsheep.com/toys/helpful-site/
 
 Specifically, Helpful Site provides you with:
 
