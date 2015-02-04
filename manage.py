@@ -247,6 +247,8 @@ def build(prod):
       }
       if i == 0 and len(pages) > 1:
         context['next_page'] = urljoin(config['site_root'], page_link_format.format(i + 2))
+      elif i == 0 and len(pages) <= 1:
+        pass
       elif i > 0 and i < len(pages) - 1:
         if i == 1:
           context['prev_page'] = config['site_root']
