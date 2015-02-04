@@ -81,6 +81,13 @@ def mini():
   click.echo('Processing css and js files')
   subprocess.call(['crammit', '-c', 'config/config.yaml'])
 
+  # also copy any files from src/assets/ to dist/assets/
+
+  for file_name in os.listdir(os.path.join(config['src_dir'], 'assets')):
+    src_path = os.path.join(config['src_dir'], 'assets', file_name)
+    dest_path = os.path.join(config['dist_dir'], 'assets', file_name)
+    shutil.copy(src_path, dest_path)
+
 
 @cli.command()
 @click.option('--prod', is_flag=True)
