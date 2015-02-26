@@ -222,6 +222,7 @@ def build(prod):
     if not os.path.exists(dir_path):
       os.makedirs(dir_path)
     render = template.render({
+      'title': category.capitalize(),
       'category': category,
       'posts': posts_in_category,
       'site_root': config['site_root'],
