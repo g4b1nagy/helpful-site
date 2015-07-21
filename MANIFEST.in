@@ -1,0 +1,7 @@
+graft helpful_site
+graft example
+
+include LICENSE
+include README.rst
+
+global-exclude *.py[cod] __pycache__ *.so

@@ -319,10 +319,10 @@ def reset(all):
       elif os.path.isdir(file_path):
         shutil.rmtree(file_path)
 
-
-if __name__ == '__main__':
+def main():
   config_path = os.path.join('config', 'config.yaml')
   with codecs.open(config_path, 'r', encoding='utf-8') as config_file:
+    global config
     config = yaml.load(config_file)
   page_attributes_path = os.path.join('config', 'page_attributes.yaml')
   with codecs.open(page_attributes_path, 'r', encoding='utf-8') as page_attributes_file:
